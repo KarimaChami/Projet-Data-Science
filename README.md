@@ -1,6 +1,6 @@
 # Projet Data Science – Prédiction du Churn Client
 ## lien Planification de travail sur Jira 
-https://karimachami24.atlassian.net/jira/software/projects/PDCC/boards/36/timeline
+https://karimachami24.atlassian.net/jira/software/projects/PDCC/boards/36?atlOrigin=eyJpIjoiYzdlMzQ0ZTQ3NzRiNDA2MGIzNTM4NjQwNGU4YWNjODQiLCJwIjoiaiJ9
 ## Description du projet
 L’objectif de ce projet est de **prédire le churn client** (désabonnement) à partir des données clients d’une entreprise de télécommunications.  
 L’analyse exploratoire (EDA), la préparation des données, l’entraînement des modèles et l’évaluation des performances ont été réalisés avec Python.
@@ -60,3 +60,4 @@ pip install -r requirements.txt
 
 
 Projet réalisé par Karima chami dans le cadre de la formation Simplon – Developpement AI.
+

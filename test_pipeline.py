@@ -17,9 +17,3 @@ def test_dimensions_split(data_encoder):
     
     print("Dimensions cohérentes après split")
 
-# def test_encodage():
-#      data = load_data("data")
-#      data_encoder = Encodage(data)
-#      col_objet = data_encoder.select_dtypes(include=['object']).columns.tolist()
-#      assert len(col_objet)==0,"Il reste des colonnes categorielles non encodées"
-#      print("toutes les colonnes catégorielles sont encodées")

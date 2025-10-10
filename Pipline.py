@@ -1,13 +1,12 @@
 import pandas as pd 
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, recall_score, f1_score, roc_auc_score
-# data = pd.read_csv("data-68e11476082f9096032105.csv")
-from sklearn.metrics import roc_curve,auc,precision_recall_curve, average_precision_score
-import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, recall_score, f1_score, roc_auc_score,roc_curve,auc,precision_recall_curve, average_precision_score
 from sklearn.pipeline import Pipeline 
+from sklearn.feature_selection import VarianceThreshold
 
 #Fonctions de préparation des données'
 def load_data(dt):
@@ -39,16 +38,17 @@ def split_data(data, target='Churn'):
 # split_data()
 X_train, X_test, y_train, y_test = split_data(data)
 
+
+
+
+
 def train_models(X_train, y_train):
     models = {
-        'Logistic Regression': Pipeline([
-            ('scaler',StandardScaler()),
-            ('model',LogisticRegression())
-        ]),
+        'Logistic Regression': LogisticRegression(),
         'Random Forest': RandomForestClassifier()
     }
-    for name, model in models.items():
-        model.fit(X_train, y_train)
+    for name in models:
+        models[name].fit(X_train, y_train)
     return models
 
 
@@ -64,19 +64,19 @@ trained_models = train_models(X_train, y_train)
 
 
 
-# from sklearn.preprocessing import StandardScaler #méthode de normalisation
-# def Normalisation(X_train,X_test):
-#    scaler = StandardScaler()
-#    X_train_scaled = scaler.fit_transform(X_train)
-#    X_test_scaled = scaler.transform(X_test)
-#    return X_train_scaled,X_test_scaled
-# Normalisation()
+from sklearn.preprocessing import StandardScaler #méthode de normalisation
+num_col = ['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges']
 
-# from sklearn.ensemble import RandomForestClassifier
-# from sklearn.metrics import accuracy_score, recall_score, f1_score, roc_auc_score
+def Normalisation(X_train,X_test,num_col):
+   scaler = StandardScaler()
+   X_train_scaled = X_train.copy()  # Copier pour ne pas modifier l'original
+   X_test_scaled = X_test.copy()
+   X_train_scaled[num_col] = scaler.fit_transform(X_train[num_col]) # Normaliser uniquement les colonnes numériques
+   X_test_scaled[num_col] = scaler.transform(X_test[num_col])
+   return X_train_scaled,X_test_scaled
+X_train_scaled,X_test_scaled = Normalisation(X_train,X_test,num_col)
 
-# trained_models = train_models(X_train, y_train)
-
+# les courbes --- ROC --- & --- PR ---
 
 def afficher_courbes(model, X_test, y_test, name):
     y_pred_proba = model.predict_proba(X_test)[:, 1]
@@ -106,10 +106,10 @@ def afficher_courbes(model, X_test, y_test, name):
     plt.legend()
     plt.tight_layout()
     plt.show()
+
 #Ce code ne s’exécutera que si tu lances directement python Pipline.py → Il ne s’exécutera pas quand pytest importe le fichier.
 if __name__ == "__main__":  
     for name, model in trained_models.items():
         print(f"\n{name}")
         afficher_courbes(model, X_test, y_test, name)
-
 

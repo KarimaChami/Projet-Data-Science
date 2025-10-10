@@ -53,10 +53,9 @@ Ce modèle est donc le plus adapté pour une mise en production fiable et explic
 
 ## Tests unitaires
 Le fichier `test_pipeline.py` vérifie :
-<!-- - L’absence de valeurs manquantes après préparation   -->
 - La cohérence des dimensions entre `X` et `y`  
-- Les types de données après transformation  
-
+ 
+=> Les tests unitaires exécutés avec Pytest ont validé la cohérence des dimensions des données après séparation entre X et y.
 ---
 
 ## Exécution du projet

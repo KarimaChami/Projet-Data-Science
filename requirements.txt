@@ -1,2 +1,5 @@
 pytest
-sklearn
+scikit-learn
+matplotlib
+pytest
+
